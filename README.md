@@ -8,6 +8,7 @@ visualizes insights about the Indian data job market.
 Adzuna API → Python (Ingestion) → Cleaning → Analysis → Visualization
 
 ## Project Structure
+```
 job_market_pulse/
 ├── data/
 │   ├── raw/              # Raw data from API (gitignored)
@@ -21,9 +22,10 @@ job_market_pulse/
 │   │   └── clean_data.py
 │   └── visualization/
 │       └── visualisation.py
-├── data_ingestion.py     # Fetches data from Adzuna API
+├── data_ingestion.py
 ├── .gitignore
 └── README.md
+```
 
 ## Tools Used
 - Python (Pandas, Matplotlib, Seaborn, Requests, python-dotenv)
@@ -40,22 +42,30 @@ job_market_pulse/
 | 📊 Total Jobs Analyzed | 1,149 live job listings |
 
 ## Setup
+
 1. Clone the repo
 
-2. Install dependencies:  
-                          pip install pandas matplotlib seaborn requests python-dotenv
+2. Install dependencies:
+```
+pip install pandas matplotlib seaborn requests python-dotenv
+```
 
 3. Create a `.env` file:
-                          ADZUNA_APP_ID=your_app_id
-                          ADZUNA_APP_KEY=your_app_key
+```
+ADZUNA_APP_ID=your_app_id
+ADZUNA_APP_KEY=your_app_key
+```
 
-4. Run pipeline in order: 
-                          python data_ingestion.py
-                          python src/cleaning/clean_data.py
-                          python src/analysis/analysis_data.py
-                          python src/visualization/visualisation.py
+4. Run pipeline in order:
+```
+python data_ingestion.py
+python src/cleaning/clean_data.py
+python src/analysis/analysis_data.py
+python src/visualization/visualisation.py
+```
 
 5. Open `notebooks/analysis.ipynb` for full analysis
 
 ## API
-Data sourced from [Adzuna API](https://developer.adzuna.com) — a legal and free job listings API.
+Data sourced from [Adzuna API](https://developer.adzuna.com) — 
+a legal and free job listings API.
