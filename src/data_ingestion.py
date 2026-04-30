@@ -46,10 +46,20 @@ def parse_jobs(jobs):
     parsed = []
     
     for job in jobs:
+        location_raw = job.get('location', {}).get('display_name', '')
+        
+        # Extract city (first part before comma)
+        city = location_raw.split(',')[0] if location_raw else ''
+        
+        # Clean city
+        if city in ['', 'India', None]:
+            city = 'Not Specified'
+        
         parsed.append({
             'title': job.get('title', ''),
             'company': job.get('company', {}).get('display_name', ''),
-            'location': job.get('location', {}).get('display_name', ''),
+            'location': location_raw,
+            'city': city,  # 👈 NEW COLUMN (important)
             'category': job.get('category', {}).get('label', ''),
             'salary_min': job.get('salary_min', None),
             'salary_max': job.get('salary_max', None),
@@ -78,5 +88,5 @@ if __name__ == "__main__":
     print(f"\nTotal unique jobs fetched: {len(df_final)}")
     print(df_final.head())
     
-    df_final.to_csv('data/raw/job_listings.csv', index=False)
+    df_final.to_csv('data/raw/job_listings1.csv', index=False)
     print("\nData saved to data/raw/job_listings.csv")
