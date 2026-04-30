@@ -1,5 +1,46 @@
 # 🚀 Job Market Pulse — Live Data Job Market Analysis
 
+## 📊 Dashboard Preview
+
+![Dashboard](assets/dashboard.png)
+
+---
+
+## 🚀 Key Insights
+
+- Bangalore accounts for ~29% of job listings  
+- Top 3 cities contribute ~66% of total jobs  
+- Business Analyst roles lead demand  
+- ~22% of listings lack location data  
+
+---
+
+## 📈 Visualizations
+
+![Top Cities](assets/top_cities.png)
+![Top Companies](assets/top_companies.png)
+
+---
+
+## ❓ Problem Statement
+
+Understanding job market trends is difficult due to fragmented and inconsistent data sources.  
+This project analyzes live job listings to identify hiring patterns across cities, roles, and companies.
+
+---
+
+## 📊 Dashboard (Power BI)
+
+An interactive Power BI dashboard was built to explore:
+- Hiring distribution across cities  
+- Role demand trends  
+- Top hiring companies  
+- Market concentration  
+
+---
+
+# 🚀 Job Market Pulse — Live Data Job Market Analysis
+
 An end-to-end data analytics project that collects live job listings from the Adzuna API and analyzes hiring trends across roles, cities, and companies in India.
 
 ---
@@ -108,3 +149,11 @@ python src/visualization/visualisation.py
 
 Adzuna API
 https://developer.adzuna.com
+
+---
+
+## 🧠 Key Learnings
+
+- Handling inconsistent real-world data (e.g., missing locations)  
+- Building a structured data pipeline  
+- Transforming raw API data into actionable insights  
