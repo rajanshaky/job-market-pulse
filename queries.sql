@@ -1,19 +1,13 @@
-create database job_market;
-use job_market;
-select * from job_listings;
+use aqi_db;
 
-update job_listings
-set city = 'Not Specified'
-where city = 'India';
+DROP TABLE IF EXISTS aqi_data;
 
-SELECT 
-    CASE 
-        WHEN city = 'India' OR city = '' OR city IS NULL 
-        THEN 'Not Specified'
-        ELSE city
-    END AS city
-FROM job_listings;
+CREATE TABLE aqi_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    city VARCHAR(100),
+    aqi INT,
+    dominant_pollutant VARCHAR(20),
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
-set SQL_SAFE_UPDATES = 0;
-
-select distinct(city) from job_listings ;
+select * from aqi_data;
