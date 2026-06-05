@@ -202,7 +202,7 @@ if page == "📊 Market Overview":
     # Top Cities
     with col1:
         st.markdown('<div class="section-title">🏙️ Top 10 Hiring Cities</div>', unsafe_allow_html=True)
-        top_cities = df[city_col].value_counts().head(10).sort_values(ascending=True)
+        top_cities = df[df[city_col] != 'Not Specified'][city_col].value_counts().head(10).sort_values(ascending=True)
         colors = [BAR_HOVER if i == len(top_cities)-1 else BAR_COLOR for i in range(len(top_cities))]
         fig = go.Figure(go.Bar(
             x=top_cities.values, y=top_cities.index, orientation='h',
@@ -315,30 +315,39 @@ elif page == "💡 Key Insights":
     with col_a:
         st.markdown('<div class="section-title">Role Distribution</div>', unsafe_allow_html=True)
         role_counts = df[role_col].value_counts()
-        fig = go.Figure(go.Bar(
-            x=role_counts.index, y=role_counts.values,
-            marker_color=['#388bfd' if i > 0 else '#58a6ff' for i in range(len(role_counts))],
-            text=role_counts.values, textposition='outside',
-            textfont=dict(color='#8b949e', size=11),
-            hovertemplate='<b>%{x}</b><br>%{y} listings<extra></extra>'
+        fig = go.Figure(go.Pie(
+            labels=role_counts.index,
+            values=role_counts.values,
+            hole=0.55,
+            marker_colors=['#388bfd','#3fb950','#d2a8ff','#ffa657','#f78166'],
+            textfont=dict(color='#ffffff', size=12),
+            textinfo='label+percent',
+            hovertemplate='<b>%{label}</b><br>%{value} listings (%{percent})<extra></extra>'
         ))
-        fig.update_layout(**PLOTLY_THEME, height=300, margin=dict(l=10,r=10,t=10,b=30),
-            xaxis_title="Role", yaxis_title="Job Count", showlegend=False)
+        fig.update_layout(**PLOTLY_THEME, height=320, margin=dict(l=10,r=10,t=10,b=10),
+            legend=dict(font=dict(color='#8b949e', size=10), orientation='h', yanchor='bottom', y=1.02),
+            annotations=[dict(text=f'{role_counts.sum():,}<br><span style="font-size:10px">listings</span>',
+                x=0.5, y=0.5, font=dict(size=16, color='#ffffff'), showarrow=False)])
         st.plotly_chart(fig, use_container_width=True)
+        st.markdown('<div class="section-note">Each keyword fetched ~250 listings — distribution reflects data collection design</div>', unsafe_allow_html=True)
 
     with col_b:
-        st.markdown('<div class="section-title">City Concentration</div>', unsafe_allow_html=True)
-        top5 = df[city_col].value_counts().head(5)
-        others = len(df) - top5.sum()
+        st.markdown('<div class="section-title">City Concentration (excl. Not Specified)</div>', unsafe_allow_html=True)
+        city_filtered = df[df[city_col] != 'Not Specified'][city_col]
+        top5 = city_filtered.value_counts().head(5)
+        others_count = len(city_filtered) - top5.sum()
+        not_specified_count = (df[city_col] == 'Not Specified').sum()
         labels = list(top5.index) + ['Others']
-        values = list(top5.values) + [others]
+        values = list(top5.values) + [others_count]
         fig2 = go.Figure(go.Pie(
-            labels=labels, values=values, hole=0.5,
+            labels=labels, values=values, hole=0.55,
             marker_colors=['#388bfd','#3fb950','#d2a8ff','#ffa657','#f78166','#8b949e'],
             textfont=dict(color='#ffffff', size=11),
+            textinfo='label+percent',
             hovertemplate='<b>%{label}</b><br>%{value} jobs (%{percent})<extra></extra>'
         ))
-        fig2.update_layout(**PLOTLY_THEME, height=300, margin=dict(l=10,r=10,t=10,b=10),
-            legend=dict(font=dict(color='#8b949e', size=10), orientation='v'))
+        fig2.update_layout(**PLOTLY_THEME, height=320, margin=dict(l=10,r=10,t=10,b=10),
+            legend=dict(font=dict(color='#8b949e', size=10), orientation='h', yanchor='bottom', y=1.02))
         st.plotly_chart(fig2, use_container_width=True)
+        st.markdown(f'<div class="section-note">{not_specified_count} listings ({not_specified_count/len(df)*100:.1f}%) have no location data</div>', unsafe_allow_html=True)
 
