@@ -43,3 +43,5 @@ Thumbs.db
 .env
 
 test.py
+
+job_market_dump.sql
