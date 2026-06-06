@@ -115,7 +115,10 @@ def get_engine():
     host     = os.getenv('RAILWAY_MYSQL_HOST', 'localhost')
     port     = os.getenv('RAILWAY_MYSQL_PORT', '3306')
     database = os.getenv('RAILWAY_MYSQL_DATABASE', 'job_market')
-    return sal.create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}")
+    return sal.create_engine(
+        f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}",
+        pool_pre_ping=True,
+        pool_recycle = 1800)  
 
 @st.cache_data(ttl=3600)
 def load_data():
