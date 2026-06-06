@@ -1,65 +1,38 @@
 # 🚀 Job Market Pulse — Live Data Job Market Analysis
 
-## 📊 Dashboard Preview
+[![Live Dashboard](https://img.shields.io/badge/Live-Dashboard-brightgreen)](https://job-market-pulse-india.streamlit.app)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://python.org)
+[![MySQL](https://img.shields.io/badge/MySQL-Railway-orange)](https://railway.app)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Deployed-red)](https://streamlit.io)
 
-![Dashboard](assets/dashboard.png)
+An end-to-end data analytics project that collects live job listings from the Adzuna API, stores them in a cloud MySQL database, and visualizes hiring trends across roles, cities, and companies in India through a live interactive dashboard.
 
----
-
-## 🚀 Key Insights
-
-- Bangalore accounts for ~29% of job listings  
-- Top 3 cities contribute ~66% of total jobs  
-- Business Analyst roles lead demand  
-- ~22% of listings lack location data  
+🔗 **Live Dashboard:** [job-market-pulse-india.streamlit.app](https://job-market-pulse-india.streamlit.app)
 
 ---
 
-## 📈 Visualizations
-
-![Top Cities](assets/top_cities.png)
-![Top Companies](assets/top_companies.png)
-
----
-
-## ❓ Problem Statement
-
-Understanding job market trends is difficult due to fragmented and inconsistent data sources.  
-This project analyzes live job listings to identify hiring patterns across cities, roles, and companies.
-
----
-
-## 📊 Dashboard (Power BI)
-
-An interactive Power BI dashboard was built to explore:
-- Hiring distribution across cities  
-- Role demand trends  
-- Top hiring companies  
-- Market concentration  
-
----
-
-# 🚀 Job Market Pulse — Live Data Job Market Analysis
-
-An end-to-end data analytics project that collects live job listings from the Adzuna API and analyzes hiring trends across roles, cities, and companies in India.
-
----
-
-## 🎯 Objective
+## 📌 Objective
 
 To identify:
+- Where data jobs are concentrated geographically
+- Which roles are most in demand
+- How hiring is distributed across companies
 
-* Where data jobs are concentrated
-* Which roles are most in demand
-* How hiring is distributed across companies
-
-using real-time job market data.
+Using real-time job market data from the Adzuna API.
 
 ---
 
-## ⚙️ Pipeline
+## ⚙️ Tech Stack
 
-Adzuna API → Data Ingestion → Data Cleaning → Analysis → Visualization → Insights
+| Category        | Technologies                        |
+| --------------- | ----------------------------------- |
+| Programming     | Python                              |
+| Database        | MySQL (Railway Cloud)               |
+| Data Processing | Pandas                              |
+| API             | Adzuna Jobs API                     |
+| Visualization   | Power BI, Streamlit, Plotly         |
+| Deployment      | Streamlit Cloud + Railway           |
+| Environment     | Virtual Environment (.venv)         |
 
 ---
 
@@ -67,93 +40,191 @@ Adzuna API → Data Ingestion → Data Cleaning → Analysis → Visualization �
 
 ```
 job_market_pulse/
+│
+├── assets/
+│   ├── dashboard.png
+│   ├── insights.png
+│   ├── top_cities.png
+│   └── top_companies.png
+│
 ├── data/
 │   ├── raw/              # Raw API data (gitignored)
 │   └── processed/        # Cleaned datasets (gitignored)
+│
 ├── notebooks/
-│   └── analysis.ipynb    # Exploratory analysis & charts
+│   └── analysis.ipynb
+│
 ├── src/
-│   ├── analysis/         # Analytical scripts
-│   ├── cleaning/         # Data cleaning pipeline
-│   └── visualization/    # Plot generation scripts
+│   ├── analysis/
+│   │   └── analysis_data.py
+│   ├── cleaning/
+│   │   └── clean_data.py
+│   └── visualization/
+│       └── visualisation.py
+│
+├── app.py                # Streamlit dashboard
 ├── data_ingestion.py     # API data collection
+├── load_to_db.py         # MySQL loader
+├── queries.sql           # SQL queries
+├── Dashboard.pbix        # Power BI dashboard
+├── .env.example
 ├── .gitignore
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## 🛠️ Tools & Technologies
+## 🔄 Pipeline
 
-* Python (Pandas, Matplotlib, Seaborn, Requests)
-* Adzuna API
-* Jupyter Notebook
-* Data Cleaning & Feature Engineering
-
----
-
-## 📊 Key Insights
-
-* **Bangalore accounts for ~29% of job listings**, making it the dominant hiring hub
-* **Top 3 cities contribute ~66% of total jobs**, indicating strong geographic concentration
-* **Business Analyst roles slightly exceed Data Analyst and Data Scientist roles**, highlighting demand for business-oriented skills
-* **Hiring is distributed across many companies, but a few dominate listings**
-* **~22% of job postings do not specify a city**, reflecting incomplete location data
+```
+Adzuna API
+     ↓
+Python (fetch + clean + transform)
+     ↓
+MySQL on Railway (cloud database)
+     ↓
+Power BI Dashboard (.pbix)
+     +
+Streamlit Dashboard (job-market-pulse-india.streamlit.app)
+```
 
 ---
 
-## 📈 Dataset Summary
+## 📊 Power BI Dashboard
 
-* Total Jobs Analyzed: **1,149**
-* Cities Covered: **51**
-* Companies: **666**
+Built an interactive Power BI dashboard exploring:
+- Hiring distribution across cities
+- Role demand trends
+- Top hiring companies
+- Market concentration
+
+### Dashboard Preview
+
+#### Page 1 — Market Overview
+![Dashboard](assets/dashboard.png)
+
+#### Page 2 — Key Insights
+![Insights](assets/insights.png)
+
+---
+
+## 🌐 Streamlit Live Dashboard
+
+Since Power BI requires a Pro license for public sharing, the dashboard was rebuilt using **Streamlit + Plotly** and deployed publicly on Streamlit Cloud — connected to the same cloud MySQL database on Railway.
+
+🔗 **[job-market-pulse-india.streamlit.app](https://job-market-pulse-india.streamlit.app)**
+
+### Features
+- Market Overview — KPIs, top cities, role distribution, top companies
+- Key Insights — headline stats, findings, implications, recommendations
+- Interactive role filter dropdown
+- Fully public — no login required
+
+---
+
+## 📈 Key Insights
+
+- **Bangalore accounts for ~29% of job listings** — dominant hiring hub
+- **Top 3 cities contribute ~66% of total jobs** — strong geographic concentration
+- **Business Analyst roles slightly exceed Data Analyst** — demand for business-oriented skills
+- **Hiring is spread across many companies** — few dominate listings
+- **~22% of listings lack location data** — grouped as "Not Specified"
+
+---
+
+## 📋 Dataset Summary
+
+| Metric | Value |
+|---|---|
+| Total Jobs | 1,149 |
+| Cities | 51 |
+| Companies | 666 |
+| Role Types | 5 |
+
+---
+
+## ▶️ How to Run Locally
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/rajanshaky/job-market-pulse.git
+cd job-market-pulse
+```
+
+### 2. Create & Activate Virtual Environment
+```bash
+python -m venv .venv
+.venv\Scripts\activate   # Windows
+```
+
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure Environment Variables
+Create a `.env` file:
+```env
+ADZUNA_APP_ID=your_app_id
+ADZUNA_APP_KEY=your_app_key
+MYSQL_HOST=your_host
+MYSQL_PORT=3306
+MYSQL_USER=your_user
+MYSQL_PASSWORD=your_password
+MYSQL_DATABASE=your_database
+```
+
+### 5. Run the Pipeline
+```bash
+python data_ingestion.py
+python src/cleaning/clean_data.py
+python src/analysis/analysis_data.py
+```
+
+### 6. Launch the Dashboard
+```bash
+streamlit run app.py
+```
 
 ---
 
 ## ⚠️ Data Considerations
 
-* Some listings lack location data and are grouped as **"Not Specified"**
-* Data is fetched live via API and may vary over time
+- Some listings lack location data — grouped as "Not Specified"
+- Each keyword fetched ~250 listings for balanced role representation
+- Data reflects a snapshot of the market at time of collection
 
 ---
 
-## ▶️ Setup & Execution
+## 🧠 Skills Demonstrated
 
-### 1. Install dependencies
-
-```
-pip install pandas matplotlib seaborn requests python-dotenv
-```
-
-### 2. Configure API credentials
-
-Create a `.env` file:
-
-```
-ADZUNA_APP_ID=your_app_id
-ADZUNA_APP_KEY=your_app_key
-```
-
-### 3. Run the pipeline
-
-```
-python data_ingestion.py
-python src/cleaning/clean_data.py
-python src/analysis/analysis_data.py
-python src/visualization/visualisation.py
-```
+- REST API integration (Adzuna)
+- ETL pipeline development
+- Data cleaning & feature engineering
+- Cloud MySQL management (Railway)
+- Power BI dashboard development
+- Streamlit + Plotly interactive dashboards
+- Cloud deployment (Streamlit Cloud)
+- End-to-end analytics workflow
 
 ---
 
 ## 📌 Data Source
 
-Adzuna API
-https://developer.adzuna.com
+[Adzuna Jobs API](https://developer.adzuna.com)
 
 ---
 
-## 🧠 Key Learnings
+## 👨‍💻 Author
 
-- Handling inconsistent real-world data (e.g., missing locations)  
-- Building a structured data pipeline  
-- Transforming raw API data into actionable insights  
+**Rajan Shaky**
+Aspiring Data Analyst | Python • SQL • Power BI • Streamlit
+
+[![GitHub](https://img.shields.io/badge/GitHub-rajanshaky-black)](https://github.com/rajanshaky)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://linkedin.com/in/rajanshaky)
+
+---
+
+⭐ If you found this project useful, consider starring the repository!
+
